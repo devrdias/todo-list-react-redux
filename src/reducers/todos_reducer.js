@@ -1,18 +1,20 @@
 import { CREATE_TODO } from '../actions/todos_action';
 
 const INITIAL_STATE = {
-    todos: []
+    todoList: { todos: [], error: null, loading: false }
 }
 
-export default function todos(state = [], action) {
-
+export default function (state = INITIAL_STATE, action) {
     switch (action.type) {
         case CREATE_TODO:
-            console.log('state', state)
-            console.log('todoText', action.todoText)
-            return [...state, { id: Math.random(), todoText: action.todoText }]
+            return {
+                ...state, todoList: {
+                    todos: [...state.todoList.todos, action.payload],
+                    loading: true,
+                    error: false
+                }
+            }
         default:
             return state;
     }
-
 }
