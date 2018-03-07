@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import logo from '../logo.svg';
 
 import * as todoActions from '../actions/todos_action';
 
@@ -28,8 +29,8 @@ class App extends Component {
     return (
       <div className='App'>
         <header className='header'>
-          <img src={'./logo.svg'} className='logo' alt='logo' />
-          <h1 className='title'>Todo List</h1>
+          <img src={logo} className='logo' alt='logo' />
+          <h1 className='title'>Ract/Redux Todo List</h1>
         </header>
         <div className='container'>
           <ul>
