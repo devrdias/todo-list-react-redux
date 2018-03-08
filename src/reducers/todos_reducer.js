@@ -1,4 +1,4 @@
-import { CREATE_TODO, TOGGLE_TODO } from '../actions/todos_action';
+import { CREATE_TODO, TOGGLE_TODO, CLEAR_TODOS } from '../actions/todos_action';
 
 const INITIAL_STATE = {
     todoList: { items: [], error: null, loading: false }
@@ -24,8 +24,7 @@ const todos = (state = INITIAL_STATE, action) => {
         case TOGGLE_TODO:
             const { id } = action.payload;
             const toggleItems = state.todoList.items.map(item => {
-                let x = { ...item };
-                 return (item.id === id)
+                return (item.id === id)
                     ? { ...item, completed: !item.completed }
                     : item
             });
@@ -38,6 +37,9 @@ const todos = (state = INITIAL_STATE, action) => {
                     loading: false
                 }
             };
+
+        case CLEAR_TODOS:
+            return INITIAL_STATE;
 
         default:
             return state;

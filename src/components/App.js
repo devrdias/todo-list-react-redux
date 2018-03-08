@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import logo from '../logo.svg';
+import Counter from './Counter';
 
 import * as todoActions from '../actions/todos_action';
 
@@ -27,8 +28,14 @@ class App extends Component {
   }
 
 
+  clearTodoList = () => {
+    this.props.clearTodos();
+    this.setState({
+      todo: ''
+    })
+  }
+
   render() {
-    console.log('this.props', this.props)
     const { todoList } = this.props;
 
 
@@ -39,6 +46,15 @@ class App extends Component {
           <h1 className='title'>Ract/Redux Todo List</h1>
         </header>
         <div className='container'>
+          <input
+            type='text'
+            value={this.state.todo}
+            onChange={(e) => this.setState({ todo: e.target.value })}
+          />
+
+          <button onClick={this.addNewTodo}>New Todo</button>
+          <button onClick={this.clearTodoList}>Clear List</button>
+
           <ul>
             {todoList.items.map(todo => (
               <li
@@ -49,15 +65,9 @@ class App extends Component {
               </li>
             ))}
           </ul>
-
-          <input
-            type='text'
-            value={this.state.todo}
-            onChange={(e) => this.setState({ todo: e.target.value })}
-          />
-          <div>
-            <button onClick={this.addNewTodo}>New Todo</button>
-          </div>
+        </div>
+        <div>
+          <Counter clearList={this.clearList} />
         </div>
       </div >
     )
