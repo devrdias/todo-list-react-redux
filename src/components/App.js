@@ -16,15 +16,21 @@ class App extends Component {
   }
 
   addNewTodo = () => {
-    const newTodo = this.state.todo;
-    this.props.addTodo(newTodo);
+    this.props.addTodo(this.state.todo);
     this.setState({
       todo: ''
     });
   };
 
+  markTodoAsDone = (id) => {
+    this.props.toggleTodo(id);
+  }
+
+
   render() {
+    console.log('this.props', this.props)
     const { todoList } = this.props;
+
 
     return (
       <div className='App'>
@@ -34,8 +40,13 @@ class App extends Component {
         </header>
         <div className='container'>
           <ul>
-            {todoList.todos.map((todo, index) => (
-              <li key={index}>{todo}</li>
+            {todoList.items.map(todo => (
+              <li
+                key={todo.id}
+                onClick={() => this.markTodoAsDone({ id: todo.id })}
+                style={{ textDecoration: todo.completed ? 'line-through' : 'none' }} >
+                {todo.text}
+              </li>
             ))}
           </ul>
 
@@ -48,7 +59,7 @@ class App extends Component {
             <button onClick={this.addNewTodo}>New Todo</button>
           </div>
         </div>
-      </div>
+      </div >
     )
   }
 }
