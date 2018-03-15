@@ -1,7 +1,5 @@
 // TODOs actions
 // =============
-
-
 // Create todo
 export const CREATE_TODO = 'CREATE_TODO';
 // Toggle todo

@@ -1,42 +1,27 @@
-import { CREATE_TODO, TOGGLE_TODO, CLEAR_TODOS } from '../actions/todos_action';
+import {
+    CREATE_TODO, TOGGLE_TODO, CLEAR_TODOS
+} from '../actions/todos_action';
 
-const INITIAL_STATE = {
-    todoList: { items: [], error: null, loading: false }
-}
+const INITIAL_STATE = [];
 
 const todos = (state = INITIAL_STATE, action) => {
-
     switch (action.type) {
         case CREATE_TODO:
-            return {
+            return [
                 ...state,
-                todoList: {
-                    items: [...state.todoList.items,
-                    {
-                        id: Math.random(),
-                        text: action.payload,
-                        completed: false
-                    }],
-                    loading: true,
-                    error: false
+                {
+                    id: Math.random(),
+                    text: action.payload,
+                    completed: false
                 }
-            }
-        case TOGGLE_TODO:
-            const { id } = action.payload;
-            const toggleItems = state.todoList.items.map(item => {
-                return (item.id === id)
-                    ? { ...item, completed: !item.completed }
-                    : item
-            });
+            ]
 
-            return {
-                ...state,
-                todoList: {
-                    items: toggleItems,
-                    error: null,
-                    loading: false
-                }
-            };
+        case TOGGLE_TODO:
+            return state.map(todo =>
+                (todo.id === action.payload)
+                    ? { ...todo, completed: !todo.completed }
+                    : todo
+            )
 
         case CLEAR_TODOS:
             return INITIAL_STATE;
